@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Playwright state
+.playwright/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
