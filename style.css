@@ -80,6 +80,23 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── SCROLL BACKGROUND CANVAS ─── */
+#scroll-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+main, .nav, .footer {
+  position: relative;
+  z-index: 2;
+}
+
 img {
   display: block;
   max-width: 100%;

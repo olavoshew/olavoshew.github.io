@@ -6,6 +6,73 @@
 (function () {
   'use strict';
 
+  // ─── Scroll-driven background frame sequence ───
+  const canvas = document.getElementById('scroll-bg');
+  if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ctx = canvas.getContext('2d');
+    const FRAME_COUNT = 42;
+    const frames = [];
+    let loadedCount = 0;
+    let currentFrame = -1;
+    let ticking = false;
+
+    // Size canvas to window
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawFrame(currentFrame < 0 ? 0 : currentFrame);
+    }
+
+    // Draw a frame to canvas, covering viewport (object-fit: cover)
+    function drawFrame(index) {
+      const img = frames[index];
+      if (!img || !img.complete) return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      const dx = (cw - dw) / 2;
+      const dy = (ch - dh) / 2;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    // Map scroll position to frame index
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+        var frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+        if (frameIndex !== currentFrame) {
+          currentFrame = frameIndex;
+          drawFrame(frameIndex);
+        }
+        ticking = false;
+      });
+    }
+
+    // Preload all frames
+    for (var i = 0; i < FRAME_COUNT; i++) {
+      var img = new Image();
+      img.src = 'images/frame_ultra_sequence_42/frame_ultra_' + String(i).padStart(2, '0') + '.webp';
+      frames.push(img);
+    }
+
+    // When first frame loads, draw it and start listening
+    frames[0].onload = function () {
+      resizeCanvas();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', resizeCanvas);
+      onScroll();
+    };
+  }
+
   // ─── Nav background on scroll ───
   const nav = document.getElementById('nav');
   const hero = document.getElementById('hero');
