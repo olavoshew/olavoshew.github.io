@@ -367,42 +367,6 @@ h1, h2, h3 {
   margin-bottom: var(--s-3xl);
 }
 
-.work-iframe-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 5;
-  max-height: 280px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: oklch(0.06 0.01 50);
-  border: 1px solid var(--c-border);
-  margin-bottom: var(--s-3xl);
-}
-
-.work-iframe {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.work-iframe-link {
-  position: absolute;
-  bottom: var(--s-sm);
-  right: var(--s-md);
-  font-size: var(--t-small);
-  font-weight: 500;
-  color: var(--c-text);
-  background: oklch(0.09 0.01 50 / 0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: var(--s-2xs) var(--s-sm);
-  border-radius: 4px;
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-.work-iframe-link:hover { color: var(--c-accent); }
-
 .work-list {
   display: flex;
   flex-direction: column;
@@ -483,8 +447,80 @@ h1, h2, h3 {
   font-weight: 500;
 }
 
+.work-tag {
+  color: var(--c-text-3);
+  font-weight: 400;
+}
+
 .work-sep {
   color: var(--c-text-3);
+}
+
+
+/* ─── WORK ARCHIVE ─── */
+.work-archive {
+  margin-top: var(--s-3xl);
+  padding-top: var(--s-2xl);
+}
+
+.work-archive-label {
+  font-family: var(--f-body);
+  font-size: var(--t-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-3);
+  margin-bottom: var(--s-lg);
+}
+
+.work-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--c-border);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.work-archive-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  padding: var(--s-md) var(--s-lg);
+  background: var(--c-surface);
+  text-decoration: none;
+  color: var(--c-text);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.work-archive-item:hover {
+  background: var(--c-elevated);
+  color: var(--c-text);
+}
+
+.work-archive-item img {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  flex-shrink: 0;
+}
+
+.work-archive-name {
+  font-size: var(--t-small);
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-archive-year {
+  font-size: var(--t-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text-3);
+  flex-shrink: 0;
 }
 
 
@@ -652,9 +688,8 @@ h1, h2, h3 {
     padding-left: 0;
   }
 
-  .work-iframe-wrap {
-    aspect-ratio: 16 / 9;
-    max-height: 200px;
+  .work-archive-grid {
+    grid-template-columns: 1fr;
   }
 }
 
